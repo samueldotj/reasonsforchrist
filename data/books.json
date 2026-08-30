@@ -1,0 +1,24 @@
+{
+  "author": {
+    "name": "Samuel Jacob",
+    "photo": "author.svg",
+    "intro": [
+      "I am a Tamilian, husband, and father of two, born and raised in Tamil Nadu and currently working as a software engineer in Silicon Valley—the place where I was born again.",
+      "My faith is grounded in biblical, historical Christianity, as summarized in the Apostles’ and Nicene Creeds."
+    ],
+    "contactText": "You can email me about any of these books",
+    "email": "samuel@reasonsforchrist.com"
+  },
+  "books": [
+    {
+      "slug": "AgainstTheDrift",
+      "title": "Against The Drift",
+      "subtitle": "Fact, fiction and the Hindu claims against the Cross",
+      "description": "This book shows how historical and archaeological discoveries support the undeniable reliability of both the Old and New Testaments. And Why the transmission of the Bible is an 'anti-fragile' miracle, rather than a corrupted 'game of telephone'. It also provides a clear overview of core biblical doctrines designed to equip new believers with enduring truths. ",
+      "coverImage": "AgainstTheDrift.png",
+      "heyzineUrl": "https://heyzine.com/flip-book/4d23c59cd1.html",
+      "amazonUrl": "https://www.amazon.com/dp/REPLACE-ME",
+      "publishedDate": "2026-09-15"
+    }
+  ]
+}

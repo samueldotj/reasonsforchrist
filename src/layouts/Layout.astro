@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Absolute or root-relative image for social sharing previews */
+  ogImage?: string;
+}
+
+const { title, description, ogImage = '/favicon.svg' } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
+
+// Set PUBLIC_GA_ID in Vercel (Settings → Environment Variables) to enable analytics.
+const gaId = import.meta.env.PUBLIC_GA_ID;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    {gaId && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
+  </head>
+  <body class="min-h-screen bg-stone-50 text-stone-800 antialiased">
+    <slot />
+
+    <footer class="mt-16 border-t border-stone-200 py-8 text-center text-sm text-stone-500">
+      <p>&copy; {new Date().getFullYear()} Reasons for Christ. All books are free to read online.</p>
+    </footer>
+
+    <!-- Outbound click tracking: any <a data-track="event_name" data-book="slug"> fires a GA event -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var link = e.target && e.target.closest ? e.target.closest('a[data-track]') : null;
+        if (link && typeof window.gtag === 'function') {
+          window.gtag('event', link.getAttribute('data-track'), {
+            book: link.getAttribute('data-book') || undefined,
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
