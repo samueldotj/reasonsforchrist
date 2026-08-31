@@ -28,6 +28,7 @@ const pageTitle = book.subtitle ? `${book.title} — ${book.subtitle}` : book.ti
       <Image
         src={cover}
         alt={`Cover of ${book.title}`}
+        width={448}
         widths={[224, 448, 672]}
         sizes="(max-width: 640px) 14rem, 16rem"
         loading="eager"

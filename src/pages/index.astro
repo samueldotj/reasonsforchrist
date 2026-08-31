@@ -40,6 +40,7 @@ const sortedBooks = [...books].sort((a, b) =>
             <Image
               src={getCover(book.coverImage)}
               alt={`Cover of ${book.title}`}
+              width={640}
               widths={[320, 480, 640, 960]}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               class="aspect-[2/3] w-full object-cover"
@@ -70,9 +71,9 @@ const sortedBooks = [...books].sort((a, b) =>
         <Image
           src={authorPhoto}
           alt={`Photo of ${author.name}`}
-          widths={[112, 224]}
-          sizes="7rem"
-          class="h-28 w-28 shrink-0 rounded-full object-cover ring-2 ring-stone-200"
+          width={128}
+          densities={[1, 2]}
+          class="h-32 w-32 shrink-0 rounded-full object-cover object-top ring-2 ring-stone-200"
           loading="lazy"
         />
         <div>
