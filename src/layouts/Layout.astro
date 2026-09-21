@@ -1,16 +1,25 @@
 ---
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description: string;
-  /** Absolute or root-relative image for social sharing previews */
-  ogImage?: string;
+  /** Image for social sharing previews: an imported asset, or a root-relative path */
+  ogImage?: ImageMetadata | string;
 }
 
 const { title, description, ogImage = '/favicon.svg' } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
-const ogImageUrl = new URL(ogImage, Astro.site);
+
+// Social scrapers reject very large files, so serve a capped JPEG rather than
+// the full-size original.
+const ogImagePath =
+  typeof ogImage === 'string'
+    ? ogImage
+    : (await getImage({ src: ogImage, width: 1000, format: 'jpeg', quality: 76 })).src;
+const ogImageUrl = new URL(ogImagePath, Astro.site);
 
 // Set PUBLIC_GA_ID in Vercel (Settings → Environment Variables) to enable analytics.
 const gaId = import.meta.env.PUBLIC_GA_ID;
@@ -41,8 +50,11 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
         <script is:inline define:vars={{ gaId }}>
+          // Assigned onto window: Astro wraps `define:vars` scripts in an IIFE,
+          // so a bare function declaration would not be reachable from the
+          // outbound-click handler below.
           window.dataLayer = window.dataLayer || [];
-          function gtag() { dataLayer.push(arguments); }
+          window.gtag = function () { window.dataLayer.push(arguments); };
           gtag('js', new Date());
           gtag('config', gaId);
         </script>
