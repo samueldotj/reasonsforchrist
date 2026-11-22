@@ -1,9 +1,5 @@
 // Builds the Trinity Explained front end into dist/trinity, from the same trinity commit that
 // Cargo.lock pins for the Rust API (api/handler.rs). Runs after `astro build`.
-//
-// The trinity repository is private. On Vercel, set GITHUB_TOKEN (a fine-grained token with
-// read access to samueldotj/trinity); this script then lets both git and cargo use it.
-// Locally your own git credentials are used.
 
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, rmSync, mkdirSync } from 'node:fs';
@@ -23,11 +19,6 @@ const lock = readFileSync(resolve(root, 'Cargo.lock'), 'utf8');
 const match = lock.match(/source = "git\+https:\/\/github\.com\/samueldotj\/trinity\.git[^#"]*#([0-9a-f]{40})"/);
 if (!match) throw new Error('Cargo.lock has no trinity-core git source. Run `cargo generate-lockfile`.');
 const rev = match[1];
-
-if (process.env.GITHUB_TOKEN) {
-  // Lets this clone, and cargo's fetch (git-fetch-with-cli), reach the private repository.
-  run('git', ['config', '--global', `url.https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/.insteadOf`, 'https://github.com/']);
-}
 
 // Shallow fetch of exactly that commit.
 if (!existsSync(resolve(work, '.git'))) {
