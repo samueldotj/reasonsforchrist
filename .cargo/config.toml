@@ -1,0 +1,5 @@
+# The trinity repository is private: fetch it with the system `git`, so the same credentials
+# that work for `git clone` work for cargo (your SSH key or credential manager locally,
+# the GITHUB_TOKEN rewrite in scripts/build-trinity-web.mjs on Vercel).
+[net]
+git-fetch-with-cli = true

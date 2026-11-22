@@ -35,3 +35,16 @@ npm install
 npm run dev       # http://localhost:4321
 npm run build     # production build to dist/
 ```
+
+## Trinity Explained at /trinity
+
+`/trinity` serves the Trinity Explained app from the private [trinity](https://github.com/samueldotj/trinity) repository, used as a remote dependency:
+
+- **API:** `api/handler.rs` is a Rust Vercel function (`/api/handler`) built from `Cargo.toml`, which depends on `trinity-core` from the trinity repo by git. `Cargo.lock` pins the commit.
+- **Pages:** `npm run build` runs `astro build`, then `scripts/build-trinity-web.mjs`, which fetches the trinity front end at that same commit and builds it into `dist/trinity`.
+
+To run the whole site locally, with `/trinity` and its API: `npm run build`, then `npm run serve` (http://localhost:3001). This runs trinity's own dev server, read-only, from the checkout the build made in `.trinity/`. `npm run dev` is still the way to work on the Astro pages, but `/trinity` does not work there.
+
+To pick up new trinity changes: `cargo update -p trinity-core`, commit `Cargo.lock`, push.
+
+Vercel needs a `GITHUB_TOKEN` environment variable: a fine-grained GitHub token with read-only Contents access to `samueldotj/trinity`.

@@ -144,3 +144,8 @@ vite.config.ts.timestamp-*
 
 # Astro generated types and cache
 .astro/
+
+# Rust build output and the trinity checkout used to build /trinity
+target/
+.trinity/
+.vercel/

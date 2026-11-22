@@ -5,8 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "astro build && node scripts/build-trinity-web.mjs",
+    "preview": "astro preview",
+    "serve": "cargo run --manifest-path .trinity/Cargo.toml -p dev-server --release -- dist --read-only"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/trinity", "destination": "/trinity/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/api/handler",
+      "headers": [{ "key": "Cache-Control", "value": "public, s-maxage=86400, stale-while-revalidate=604800" }]
+    }
+  ]
+}
