@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+/* Colours are taken from the Against The Drift cover: forest green, ochre, sky blue. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, ui-serif, serif;
+
+  --color-paper: #f4f6f4;
+  --color-ink: #17231c;
+  --color-muted: #46534b;
+  --color-soft: #5a665f;
+  --color-line: #dce2dd;
+  --color-outline: #b9c4bc;
+  --color-forest: #1f4d35;
+  --color-forest-dark: #163826;
+  --color-ochre: #9a5710;
+  --color-sand: #f2c48a;
+  --color-sky: #dcedf6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
