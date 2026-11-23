@@ -36,6 +36,10 @@ npm run dev       # http://localhost:4321
 npm run build     # production build to dist/
 ```
 
+## Analytics
+
+Google Analytics (GA4) covers every page, `/trinity` included. Set `PUBLIC_GA_ID` to the GA4 measurement ID (`G-XXXXXXXXXX`) in Vercel → Settings → Environment Variables, then redeploy. Without it, no tracking code is added. Trinity's screens use hash URLs (`/trinity/#/writings`), so `scripts/build-trinity-web.mjs` reports each one as its own page (`/trinity/writings`).
+
 ## Trinity Explained at /trinity
 
 `/trinity` serves the Trinity Explained app from the [trinity](https://github.com/samueldotj/trinity) repository, used as a remote dependency:
