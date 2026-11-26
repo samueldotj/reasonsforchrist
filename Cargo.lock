@@ -615,7 +615,7 @@ dependencies = [
 [[package]]
 name = "trinity-core"
 version = "0.1.0"
-source = "git+https://github.com/samueldotj/trinity.git?branch=main#b1c6f0d0f4462bc96b277047910f21492ab9e676"
+source = "git+https://github.com/samueldotj/trinity.git?branch=main#2505373b068c35441d34d60176b9b6528046b058"
 dependencies = [
  "serde_json",
 ]
